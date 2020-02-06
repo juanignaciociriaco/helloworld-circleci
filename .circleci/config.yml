@@ -31,4 +31,3 @@ workflows:
   accounting-api-service:
     jobs:
       - checkout_and_build
-      -
