@@ -1,7 +1,60 @@
-orbs:
-  hello-build: circleci/hello-build@0.0.9
+# This code is licensed from CircleCI to the user under the MIT license. See
+# https://circleci.com/orbs/registry/licensing for details.
+commands:
+  circleci-env-highlights:
+    steps:
+    - run:
+        command: |-
+          echo "TRIGGERER: ${CIRCLE_USERNAME}"
+          echo "BUILD_NUMBER: ${CIRCLE_BUILD_NUM}"
+          echo "BUILD_URL: ${CIRCLE_BUILD_URL}"
+          echo "BRANCH: ${CIRCLE_BRANCH}"
+          echo "RUNNING JOB: ${CIRCLE_JOB}"
+          echo "JOB PARALLELISM: ${CIRCLE_NODE_TOTAL}"
+          echo "CIRCLE_REPOSITORY_URL: ${CIRCLE_REPOSITORY_URL}"
+        name: Show some of the CircleCI runtime env vars
+  hello-triggerer:
+    parameters:
+      to:
+        default: ${CIRCLE_USERNAME}
+        type: string
+    steps:
+    - run: echo "Hello << parameters.to >>"
+  system-info:
+    steps:
+    - run:
+        command: |-
+          echo "uname:" $(uname -a)
+          echo "arch: " $(uname -m)
+        name: Show system information
+description: |
+  A simple "Hello, World!" orb
+examples:
+  hello-build-with-workflow:
+    description: |
+      Invoke and run the hello-build orb.
+    usage:
+      orbs:
+        hello-build: circleci/hello-build@0.0.9
+      version: 2.1
+      workflows:
+        Hello Workflow:
+          jobs:
+          - hello-build/hello-build
+executors:
+  default:
+    docker:
+    - image: bash:4.4.19
+jobs:
+  hello-build:
+    executor: default
+    parameters:
+      to:
+        default: ${CIRCLE_USERNAME}
+        type: string
+    steps:
+    - hello-triggerer:
+        to: <<parameters.to>>
+    - circleci-env-highlights
+    - system-info
 version: 2.1
-workflows:
-  Hello Workflow:
-    jobs:
-      - hello-build/hello-build
