@@ -1,6 +1,16 @@
 version: 2.1
 jobs:
-  build:
+  first_job:
+    docker:
+      - image: circleci/openjdk:8-jdk-stretch
+    steps:
+      - checkout
+      - run:
+          name: The First Step
+          command: |
+            echo 'Hello World!'
+            echo 'This is the delivery pipeline'
+  second_job:
     docker:
       - image: circleci/openjdk:8-jdk-stretch
     steps:
