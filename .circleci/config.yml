@@ -15,7 +15,8 @@ jobs:
           command: |
             echo 'Hello World 2!'
             echo 'This is the delivery pipeline'
-  second_job:
+## This is the second job definition
+  promote_to_master:
     docker:
       - image: circleci/openjdk:8-jdk-stretch
     steps:
@@ -27,6 +28,9 @@ jobs:
             echo 'This is the delivery pipeline'
 workflows:
   version: 2
-  accounting-api-service:
+  build_release:
     jobs:
       - checkout_and_build
+  promote_to_environments:
+    jobs:
+      - promote_to_master
