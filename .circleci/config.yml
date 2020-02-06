@@ -1,6 +1,6 @@
 version: 2.1
 jobs:
-  first_job:
+  checkout_and_build:
     docker:
       - image: circleci/openjdk:8-jdk-stretch
     steps:
@@ -10,6 +10,12 @@ jobs:
           command: |
             echo 'Hello World!'
             echo 'This is the delivery pipeline'
+      - run:
+          name: The Second Step
+          command: |
+            echo 'Hello World 2!'
+            echo 'This is the delivery pipeline'
+# Second Job definition
   second_job:
     docker:
       - image: circleci/openjdk:8-jdk-stretch
@@ -22,6 +28,7 @@ jobs:
             echo 'This is the delivery pipeline'
 workflows:
   version: 2
-  my_workflow:
+  accounting-api-service:
     jobs:
-      - first_job
+      - checkout_and_build
+      -
