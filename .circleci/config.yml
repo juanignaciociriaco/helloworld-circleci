@@ -15,7 +15,6 @@ jobs:
           command: |
             echo 'Hello World 2!'
             echo 'This is the delivery pipeline'
-# Second Job definition
   second_job:
     docker:
       - image: circleci/openjdk:8-jdk-stretch
