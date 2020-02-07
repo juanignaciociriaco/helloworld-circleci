@@ -34,3 +34,4 @@ workflows:
   promote_to_environments:
     jobs:
       - promote_to_master
+          requires: checkout_and_build
