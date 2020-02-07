@@ -33,5 +33,5 @@ workflows:
       - checkout_and_build
   promote_to_environments:
     jobs:
-      - promote_to_master:
-          requires: checkout_and_build
+      - promote_to_master
+        requires: checkout_and_build
