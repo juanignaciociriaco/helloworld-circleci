@@ -19,8 +19,6 @@ jobs:
             echo 'mvn install sonar:sonar'
 ## This is the second job definition. All commands are "echo"
   checkout_and_build:
-    environment:
-      _JAVA_OPTIONS: "-Xmx3g"
     docker:
       - image: circleci/openjdk:8-jdk-stretch
     steps:
