@@ -17,6 +17,7 @@ jobs:
           name: Third step: enforcer
           command: |
             echo 'mvn install sonar:sonar'
+            echo 'mvn clean deploy -Dmaven.test.skip=true'
 ## This is the second job definition. All commands are "echo"
   checkout_and_build:
     docker:
