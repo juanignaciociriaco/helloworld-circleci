@@ -1,21 +1,45 @@
 version: 2.1
 jobs:
-  checkout_and_build:
+  tests:
     docker:
       - image: circleci/openjdk:8-jdk-stretch
     steps:
       - checkout
       - run:
-          name: The First Step
+          name: First step: versioning
           command: |
-            echo 'Hello World!'
-            echo 'This is the delivery pipeline'
+            echo 'mvn versions:set -DnewVersion=${CIRCLE_TAG}'
       - run:
-          name: The Second Step
+          name: Second step: enforcer
           command: |
-            echo 'Hello World 2!'
-            echo 'This is the delivery pipeline'
-## This is the second job definition
+            echo 'mvn enforcer:enforce'
+      - run:
+          name: Third step: enforcer
+          command: |
+            echo 'mvn install sonar:sonar'
+## This is the second job definition. All commands are "echo"
+  checkout_and_build:
+    environment:
+      _JAVA_OPTIONS: "-Xmx3g"
+    docker:
+      - image: circleci/openjdk:8-jdk-stretch
+    steps:
+      - checkout
+      - run:
+          name: First step: versioning
+          command: |
+            echo 'mvn versions:set -DnewVersion=${CIRCLE_TAG}'
+      - run:
+          name: Second step: enforcer
+          command: |
+            echo 'mvn enforcer:enforce'
+      - run:
+          name: Third step: enforcer
+          command: |
+            echo 'mvn install sonar:sonar'
+            echo 'mvn clean deploy -Dmaven.test.skip=true'
+
+## This is the third job definition
   promote_to_master:
     docker:
       - image: circleci/openjdk:8-jdk-stretch
