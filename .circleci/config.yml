@@ -6,18 +6,17 @@ jobs:
     steps:
       - checkout
       - run:
-          name: First step: versioning
+          name: Versioning
           command: |
             echo 'mvn versions:set -DnewVersion=${CIRCLE_TAG}'
       - run:
-          name: Second step: enforcer
+          name: Enforcer
           command: |
             echo 'mvn enforcer:enforce'
       - run:
-          name: Third step: enforcer
+          name: Sonar
           command: |
             echo 'mvn install sonar:sonar'
-            echo 'mvn clean deploy -Dmaven.test.skip=true'
 ## This is the second job definition. All commands are "echo"
   checkout_and_build:
     docker:
@@ -25,15 +24,15 @@ jobs:
     steps:
       - checkout
       - run:
-          name: First step: versioning
+          name: Versioning
           command: |
             echo 'mvn versions:set -DnewVersion=${CIRCLE_TAG}'
       - run:
-          name: Second step: enforcer
+          name: Enforcer
           command: |
             echo 'mvn enforcer:enforce'
       - run:
-          name: Third step: enforcer
+          name: Sonar
           command: |
             echo 'mvn install sonar:sonar'
             echo 'mvn clean deploy -Dmaven.test.skip=true'
