@@ -13,7 +13,7 @@ jobs:
           command: |
 #            echo 'export TAG=$(cat VERSION)-$CIRCLE_BUILD_NUM' # >> $BASH_ENV
 #            echo $TAG
-            cat VERSION
+            sh 'cat VERSION'
       - run:
           name: Details about this job
           command: |
