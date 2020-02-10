@@ -1,24 +1,6 @@
 version: 2.1
 jobs:
-  tests:
-    docker:
-      - image: circleci/openjdk:8-jdk-stretch
-    steps:
-      - checkout
-      - run:
-          name: Setting_Version
-          command: |
-            echo 'mvn versions:set -DnewVersion=${CIRCLE_TAG}'
-      - run:
-          name: Maven_Enforcer
-          command: |
-            echo 'mvn enforcer:enforce'
-      - run:
-          name: Maven_Sonar
-          command: |
-            echo 'mvn install sonar:sonar'
-## This is the second job definition. All commands are "echo"
-  checkout_and_build:
+  checkout_test_and_build:
     environment:
       _JAVA_OPTIONS: "-Xmx3g"
     docker:
@@ -38,9 +20,14 @@ jobs:
           command: |
             echo 'mvn install sonar:sonar'
             echo 'mvn clean deploy -Dmaven.test.skip=true'
+      - run:
+          name: Integration Tests Backend
+          command: |
+            echo 'git clone https://github.boozallencsn.com/AI/integration-test-backend.git'
+            echo 'cd integration-test-backend && mvn test -Dtest=QualityGateTest -Dsonar.project.key=com.bah.ai.api:accounting-api-service'
 
-## This is the third job definition
-  promote_to_master:
+## This is the 2nd job definition
+  promote_to_environments:
     docker:
       - image: circleci/openjdk:8-jdk-stretch
     steps:
@@ -58,6 +45,6 @@ workflows:
   promote_to_environments:
     jobs:
       - checkout_and_build
-      - promote_to_master:
+      - promotes_to_environments:
           requires:
           - checkout_and_build
