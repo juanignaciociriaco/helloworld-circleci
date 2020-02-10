@@ -29,7 +29,7 @@ jobs:
             echo $TAG
       - run:
           name: Setting_Version
-          command: echo  mvn versions:set -DnewVersion=$TAG
+          command: echo  mvn versions:set -DnewVersion=${TAG}
       - run:
           name: Maven_Enforcer
           command: |
