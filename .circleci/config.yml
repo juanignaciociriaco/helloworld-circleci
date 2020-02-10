@@ -23,7 +23,11 @@ jobs:
             echo Home directory: ${HOME}
       - run:
           name: Setting TAG variable
-          command: echo $(cat VERSION)-${CIRCLE_BRANCH}
+          command: |
+            echo $(cat VERSION)-${CIRCLE_BRANCH}
+
+            export TAG=$(cat VERSION)-${CIRCLE_BRANCH} >> $BASH_ENV
+            echo $TAG
       - run:
           name: Setting_Version
           command: echo  mvn versions:set -DnewVersion=${CIRCLE_TAG}
