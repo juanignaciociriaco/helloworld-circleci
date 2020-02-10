@@ -22,15 +22,14 @@ jobs:
             # echo Version: ${VERSION}
             echo Home directory: ${HOME}
       - run:
-          name: Setting TAG variable
+          name: Setting TAG global variable
           command: |
             echo $(cat VERSION)-${CIRCLE_BRANCH}
-
             export TAG=$(cat VERSION)-${CIRCLE_BRANCH} >> $BASH_ENV
             echo $TAG
       - run:
           name: Setting_Version
-          command: echo  mvn versions:set -DnewVersion=${CIRCLE_TAG}
+          command: echo  mvn versions:set -DnewVersion=$TAG
       - run:
           name: Maven_Enforcer
           command: |
