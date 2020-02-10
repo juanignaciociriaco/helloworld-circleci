@@ -41,10 +41,10 @@ workflows:
   version: 2
   build_release:
     jobs:
-      - checkout_and_build
+      - checkout_test_and_build
   promote_to_environments:
     jobs:
-      - checkout_and_build
+      - checkout_test_and_build
       - promotes_to_environments:
           requires:
-          - checkout_and_build
+          - checkout_test_and_build
