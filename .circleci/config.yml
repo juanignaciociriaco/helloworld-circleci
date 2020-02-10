@@ -12,7 +12,7 @@ jobs:
           name: Setting_Version
           command: |
             echo 'mvn versions:set -DnewVersion=${CIRCLE_TAG}'
-            echo ${APP_NAME}
+            echo This is a variable defined above: ${APP_NAME}
       - run:
           name: Maven_Enforcer
           command: |
