@@ -32,7 +32,7 @@ jobs:
       - run:
           name: Maven_Enforcer
           command: |
-            echo 'mvn enforcer:enforce'
+            'mvn enforcer:enforce'
       - run:
           name: Maven_Sonar
           command: |
