@@ -13,7 +13,7 @@ jobs:
           command: |
 #            echo 'export TAG=$(cat VERSION)-$CIRCLE_BUILD_NUM' # >> $BASH_ENV
 #            echo $TAG
-            
+             mvn enforcer:enforce'
       - run:
           name: Details about this job
           command: |
@@ -31,7 +31,7 @@ jobs:
       - run:
           name: Maven_Enforcer
           command: |
-            'mvn enforcer:enforce'
+            echo 'mvn enforcer:enforce'
       - run:
           name: Maven_Sonar
           command: |
