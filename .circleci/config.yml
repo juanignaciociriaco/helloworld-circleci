@@ -14,6 +14,7 @@ jobs:
             echo 'mvn versions:set -DnewVersion=${CIRCLE_TAG}'
             echo This is the version ${CIRCLE_TAG}
             echo This is a variable defined above: ${APP_NAME}
+            echo Circle Branch ${CIRCLE_BRANCH}
       - run:
           name: Maven_Enforcer
           command: |
