@@ -3,6 +3,7 @@ jobs:
   checkout_test_and_build:
     environment:
       _JAVA_OPTIONS: "-Xmx3g"
+      APP_NAME: "accounting-api-service"
     docker:
       - image: circleci/openjdk:8-jdk-stretch
     steps:
@@ -11,6 +12,7 @@ jobs:
           name: Setting_Version
           command: |
             echo 'mvn versions:set -DnewVersion=${CIRCLE_TAG}'
+            echo ${APP_NAME}
       - run:
           name: Maven_Enforcer
           command: |
