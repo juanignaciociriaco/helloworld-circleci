@@ -11,8 +11,9 @@ jobs:
       - run:
           name: Set the tag for the image, we will concatenate the app verson and circle build number with a `-` char in between
           command: |
-            echo 'export TAG=$(cat VERSION)-$CIRCLE_BUILD_NUM' # >> $BASH_ENV
-            echo $TAG
+#            echo 'export TAG=$(cat VERSION)-$CIRCLE_BUILD_NUM' # >> $BASH_ENV
+#            echo $TAG
+            cat ./VERSION
       - run:
           name: Details about this job
           command: |
