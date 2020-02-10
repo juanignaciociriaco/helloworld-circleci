@@ -10,10 +10,7 @@ jobs:
       - checkout
       - run:
           name: Set the tag for the image, we will concatenate the app verson and circle build number with a `-` char in between
-          command: |
-#            echo 'export TAG=$(cat VERSION)-$CIRCLE_BUILD_NUM' # >> $BASH_ENV
-#            echo $TAG
-             mvn enforcer:enforce
+          command: mvn enforcer:enforce
       - run:
           name: Details about this job
           command: |
