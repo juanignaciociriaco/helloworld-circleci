@@ -13,7 +13,7 @@ jobs:
           command: |
 #            echo 'export TAG=$(cat VERSION)-$CIRCLE_BUILD_NUM' # >> $BASH_ENV
 #            echo $TAG
-             mvn enforcer:enforce'
+             mvn enforcer:enforce
       - run:
           name: Details about this job
           command: |
