@@ -44,9 +44,9 @@ workflows:
   build_release:
     jobs:
       - checkout_test_and_build
-  promote_to_environments:
+  promote_to_master:
     jobs:
       - checkout_test_and_build
-      - promotes_to_environments:
+      - promote_to_environments:
           requires:
           - checkout_test_and_build
