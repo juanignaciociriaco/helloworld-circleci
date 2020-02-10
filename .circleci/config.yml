@@ -10,7 +10,7 @@ jobs:
       - checkout
       - run:
           name: Set the tag for the image, we will concatenate the app verson and circle build number with a `-` char in between
-          command: mvn enforcer:enforce
+          command: echo mvn enforcer:enforce
       - run:
           name: Details about this job
           command: |
@@ -23,8 +23,7 @@ jobs:
             echo Home directory: ${HOME}
       - run:
           name: Setting_Version
-          command: |
-            echo 'mvn versions:set -DnewVersion=${CIRCLE_TAG}'
+          command: mvn versions:set -DnewVersion=${CIRCLE_TAG}
       - run:
           name: Maven_Enforcer
           command: |
