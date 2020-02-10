@@ -23,7 +23,7 @@ jobs:
             echo Home directory: ${HOME}
       - run:
           name: Testing Commands
-          command: echo $(pwd)
+          command: echo $(cat VERSION)
       - run:
           name: Setting_Version
           command: echo  mvn versions:set -DnewVersion=${CIRCLE_TAG}
