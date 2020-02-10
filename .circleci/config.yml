@@ -14,6 +14,10 @@ jobs:
             echo Application name: ${APP_NAME}
             echo Current branch: ${CIRCLE_BRANCH}
             echo Version: ${VERSION}
+            echo Build number: ${CIRCLE_BUILD_NUM}
+            echo Repo name: ${CIRCLE_PROJECT_REPONAME}
+            echo Tag: ${CIRCLE_TAG}
+            echo Home directory: ${HOME}
       - run:
           name: Setting_Version
           command: |
