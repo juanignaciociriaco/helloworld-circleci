@@ -22,8 +22,8 @@ jobs:
             # echo Version: ${VERSION}
             echo Home directory: ${HOME}
       - run:
-          name: Testing Commands
-          command: echo $(cat VERSION)
+          name: Setting TAG variable
+          command: echo $(cat VERSION)-${CIRCLE_BRANCH}
       - run:
           name: Setting_Version
           command: echo  mvn versions:set -DnewVersion=${CIRCLE_TAG}
