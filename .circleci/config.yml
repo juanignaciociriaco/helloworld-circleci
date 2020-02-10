@@ -12,6 +12,7 @@ jobs:
           name: Setting_Version
           command: |
             echo 'mvn versions:set -DnewVersion=${CIRCLE_TAG}'
+            echo This is the version ${CIRCLE_TAG}
             echo This is a variable defined above: ${APP_NAME}
       - run:
           name: Maven_Enforcer
@@ -29,7 +30,7 @@ jobs:
             echo 'cd integration-test-backend && mvn test -Dtest=QualityGateTest -Dsonar.project.key=com.bah.ai.api:accounting-api-service'
 
 ## This is the 2nd job definition
-  promote_to_environments:
+  deployment:
     docker:
       - image: circleci/openjdk:8-jdk-stretch
     steps:
@@ -37,16 +38,15 @@ jobs:
       - run:
           name: Calling Spinnaker
           command: |
-            echo 'Hello World!'
-            echo 'This is the delivery pipeline'
+            echo 'This is the deployment step'
 workflows:
   version: 2
-  build_release:
+  Build_Release:
     jobs:
       - checkout_test_and_build
-  promote_to_master:
+  Continuous_Deployment:
     jobs:
       - checkout_test_and_build
-      - promote_to_environments:
+      - deployment:
           requires:
           - checkout_test_and_build
