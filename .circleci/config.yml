@@ -23,7 +23,7 @@ jobs:
             echo Home directory: ${HOME}
       - run:
           name: Setting_Version
-          command: mvn versions:set -DnewVersion=${CIRCLE_TAG}
+          command: echo  mvn versions:set -DnewVersion=${CIRCLE_TAG}
       - run:
           name: Maven_Enforcer
           command: |
