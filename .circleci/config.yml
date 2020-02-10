@@ -9,12 +9,15 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Details about this job
+          command: |
+            echo Application name: ${APP_NAME}
+            echo Current branch: ${CIRCLE_BRANCH}
+            echo Version: ${VERSION}
+      - run:
           name: Setting_Version
           command: |
             echo 'mvn versions:set -DnewVersion=${CIRCLE_TAG}'
-            echo This is the version ${CIRCLE_TAG}
-            echo This is a variable defined above: ${APP_NAME}
-            echo Circle Branch ${CIRCLE_BRANCH}
       - run:
           name: Maven_Enforcer
           command: |
