@@ -9,6 +9,10 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Set the tag for the image, we will concatenate the app verson and circle build number with a `-` char in between
+          command: |
+            echo 'export TAG=$(cat VERSION)-$CIRCLE_BUILD_NUM' >> $BASH_ENV
+      - run:
           name: Details about this job
           command: |
             echo Application name: ${APP_NAME}
@@ -16,7 +20,7 @@ jobs:
             echo Version: ${VERSION}
             echo Build number: ${CIRCLE_BUILD_NUM}
             echo Repo name: ${CIRCLE_PROJECT_REPONAME}
-            echo Tag: ${CIRCLE_TAG}
+            # echo Version: ${VERSION}
             echo Home directory: ${HOME}
       - run:
           name: Setting_Version
@@ -35,7 +39,7 @@ jobs:
           name: Integration Tests Backend
           command: |
             echo 'git clone https://github.boozallencsn.com/AI/integration-test-backend.git'
-            echo 'cd integration-test-backend && mvn test -Dtest=QualityGateTest -Dsonar.project.key=com.bah.ai.api:accounting-api-service'
+            echo 'cd integration-test-backend && mvn test -Dtest=QualityGateTest -Dsonar.project.key=com.bah.ai.api:${APP_NAME}'
 
 ## This is the 2nd job definition
   deployment:
