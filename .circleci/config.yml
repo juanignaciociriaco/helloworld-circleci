@@ -19,7 +19,6 @@ jobs:
             echo Version: ${VERSION}
             echo Build number: ${CIRCLE_BUILD_NUM}
             echo Repo name: ${CIRCLE_PROJECT_REPONAME}
-            # echo Version: ${VERSION}
             echo Home directory: ${HOME}
       - run:
           name: Setting TAG global variable
