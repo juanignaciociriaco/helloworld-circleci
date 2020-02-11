@@ -41,7 +41,7 @@ jobs:
           name: Integration Tests Backend
           command: |
             echo 'git clone https://github.boozallencsn.com/AI/integration-test-backend.git'
-            echo 'cd integration-test-backend && mvn test -Dtest=QualityGateTest -Dsonar.project.key=com.bah.ai.api:$APP_NAME'
+            echo 'cd integration-test-backend && mvn test -Dtest=QualityGateTest -Dsonar.project.key=com.bah.ai.api:$TAG'
 
 
 ## This is the 2nd job definition
