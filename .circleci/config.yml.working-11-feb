@@ -1,0 +1,67 @@
+version: 2.1
+jobs:
+  checkout_test_and_build:
+    environment:
+      _JAVA_OPTIONS: "-Xmx3g"
+      APP_NAME: "accounting-api-service"
+    docker:
+      - image: circleci/openjdk:8-jdk-stretch
+    steps:
+      - checkout
+      - run:
+          name: Set the tag for the image, we will concatenate the app verson and circle build number with a `-` char in between
+          command: echo mvn enforcer:enforce
+      - run:
+          name: Details about this job
+          command: |
+            echo Application name: ${APP_NAME}
+            echo Current branch: ${CIRCLE_BRANCH}
+            echo Version: ${VERSION}
+            echo Build number: ${CIRCLE_BUILD_NUM}
+            echo Repo name: ${CIRCLE_PROJECT_REPONAME}
+            echo Home directory: ${HOME}
+      - run:
+          name: Setting TAG global variable
+          command: |
+            echo $(cat VERSION)-${CIRCLE_BRANCH}
+            export TAG=$(cat VERSION)-${CIRCLE_BRANCH} >> $BASH_ENV
+            echo $TAG
+      - run:
+          name: Setting_Version
+          command: echo  mvn versions:set -DnewVersion=$(cat VERSION)
+      - run:
+          name: Maven_Enforcer
+          command: echo 'mvn enforcer:enforce'
+      - run:
+          name: Maven_Sonar
+          command: |
+            echo 'mvn install sonar:sonar'
+            echo 'mvn clean deploy -Dmaven.test.skip=true'
+      - run:
+          name: Integration Tests Backend
+          command: |
+            echo 'git clone https://github.boozallencsn.com/AI/integration-test-backend.git'
+             cd integration-test-backend && mvn test -Dtest=QualityGateTest -Dsonar.project.key=com.bah.ai.api:$TAG
+
+
+## This is the 2nd job definition
+  deployment:
+    docker:
+      - image: circleci/openjdk:8-jdk-stretch
+    steps:
+      - checkout
+      - run:
+          name: Calling Spinnaker
+          command: |
+            echo 'This is the deployment step'
+workflows:
+  version: 2
+  Build_Release:
+    jobs:
+      - checkout_test_and_build
+  Continuous_Deployment:
+    jobs:
+      - checkout_test_and_build
+      - deployment:
+          requires:
+          - checkout_test_and_build
