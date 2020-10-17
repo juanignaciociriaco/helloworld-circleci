@@ -1,2 +1,2 @@
 # helloworld-circleci
-Hello World app for CircleCI testing
+Hello World app for testing CircleCI pipeline
