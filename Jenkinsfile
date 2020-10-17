@@ -8,9 +8,7 @@ pipeline {
                 }
             }
             steps {
-                sh '
-                    docker build -t test:0.0.1 .
-                '
+                sh 'docker build -t test:0.0.1 . '
             }
         }
     }
